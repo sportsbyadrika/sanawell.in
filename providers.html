@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Find Nearby Services – Sanawell</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+  />
+
+  <style>
+    :root {
+      --sw-primary: #0f9b72;
+      --sw-primary-soft: #e6f7f1;
+      --sw-dark: #083b33;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: #f5faf8;
+    }
+
+    .navbar {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    .navbar-brand span {
+      font-weight: 700;
+      color: var(--sw-dark);
+    }
+
+    .btn-sw {
+      background: var(--sw-primary);
+      border-color: var(--sw-primary);
+      color: #fff;
+    }
+
+    .btn-sw:hover {
+      background: #0b7a59;
+      border-color: #0b7a59;
+      color: #fff;
+    }
+
+    .providers-hero {
+      background: var(--sw-primary-soft);
+      padding: 4rem 0 2.5rem;
+    }
+
+    .section-title {
+      font-weight: 700;
+      color: var(--sw-dark);
+    }
+
+    .section-subtitle {
+      color: #64736e;
+      max-width: 680px;
+    }
+
+    .providers-section {
+      padding: 3rem 0;
+    }
+
+    .provider-card {
+      border-radius: 0.9rem;
+      border: 1px solid #dbece5;
+      background: #fff;
+      padding: 1rem 1rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .provider-tag {
+      font-size: 0.75rem;
+      padding: 0.1rem 0.55rem;
+      border-radius: 999px;
+      background: #eef6f3;
+      color: #3b5c52;
+      display: inline-block;
+      margin: 0 0.25rem 0.25rem 0;
+    }
+
+    footer {
+      border-top: 1px solid #e1ece6;
+      background: #f7fffd;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg bg-white sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <span
+          class="me-2 rounded-circle d-inline-flex align-items-center justify-content-center"
+          style="width:32px;height:32px;background:var(--sw-primary-soft);color:var(--sw-primary);"
+        >
+          <i class="bi bi-heart-pulse"></i>
+        </span>
+        <span>sanawell</span>
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#mainNav"
+        aria-controls="mainNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#services">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="providers.html">Find Nearby</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#for-providers">For Providers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+        </ul>
+        <a href="contact.html" class="btn btn-sw ms-lg-3 mt-2 mt-lg-0">
+          Partner with Sanawell
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="providers-hero">
+    <div class="container">
+      <h1 class="section-title mb-2">Search & Find Nearby Services</h1>
+      <p class="section-subtitle mb-0">
+        Enter your area and category to explore nearby health clubs, sports facilities,
+        sports clinics, nutrition shops and healthy food providers. This page currently
+        shows sample data – later you can connect it to your API.
+      </p>
+    </div>
+  </section>
+
+  <!-- SEARCH & RESULTS -->
+  <section class="providers-section">
+    <div class="container">
+      <div class="row g-4">
+        <!-- Filters -->
+        <div class="col-lg-4">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title mb-3">
+                <i class="bi bi-funnel me-1"></i> Search Filters
+              </h5>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Your Area / City</label>
+                <input
+                  id="locationInput"
+                  type="text"
+                  class="form-control"
+                  placeholder="Eg. Kowdiar, Trivandrum"
+                />
+                <div class="form-text small">
+                  In production, you can use GPS or pincode-based search.
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Category</label>
+                <select id="categorySelect" class="form-select">
+                  <option value="all">All Categories</option>
+                  <option value="health-club">Health Club / Gym</option>
+                  <option value="sports-facility">Sports Club / Facility</option>
+                  <option value="sports-clinic">Sports Clinic / Physio</option>
+                  <option value="nutrition-shop">Nutrition Shop</option>
+                  <option value="food-provider">Healthy Food Provider</option>
+                </select>
+              </div>
+
+              <button id="searchBtn" class="btn btn-sw w-100">
+                <i class="bi bi-search me-1"></i> Search Providers
+              </button>
+
+              <p class="small text-muted mt-3 mb-0">
+                The search below uses static sample providers. Replace this logic
+                with an API call or database query.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div class="col-lg-8">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="mb-0 text-muted">
+              <span id="resultsCount">0</span> providers found
+            </h6>
+            <span class="badge rounded-pill text-bg-light">
+              <i class="bi bi-lightning-charge text-warning"></i>
+              Sample listing
+            </span>
+          </div>
+
+          <div id="providersList"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-3">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <p class="small mb-1 mb-md-0 text-muted">
+        © <span id="year"></span> Sanawell. All rights reserved.
+      </p>
+      <p class="small mb-0 text-muted">
+        Find health, fitness & sports services near you.
+      </p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Sample providers with images
+    const sampleProviders = [
+      {
+        id: 1,
+        name: "GreenPulse Health Club",
+        category: "health-club",
+        location: "Kowdiar, Trivandrum",
+        distanceKm: 1.2,
+        tags: ["Gym", "Yoga", "Personal Training"],
+        image: "images/greenpulse-gym.jpg"
+      },
+      {
+        id: 2,
+        name: "Elite Sports Arena",
+        category: "sports-facility",
+        location: "Sasthamangalam, Trivandrum",
+        distanceKm: 3.8,
+        tags: ["Badminton", "Futsal", "Coaching"],
+        image: "images/elite-arena.jpg"
+      },
+      {
+        id: 3,
+        name: "ProMotion Sports Clinic",
+        category: "sports-clinic",
+        location: "Pattom, Trivandrum",
+        distanceKm: 4.1,
+        tags: ["Physiotherapy", "Rehab", "Sports Medicine"],
+        image: "images/promotion-clinic.jpg"
+      },
+      {
+        id: 4,
+        name: "NutriFuel Store",
+        category: "nutrition-shop",
+        location: "Statue, Trivandrum",
+        distanceKm: 2.3,
+        tags: ["Supplements", "Health Foods"],
+        image: "images/nutrifuel-store.jpg"
+      },
+      {
+        id: 5,
+        name: "AthleteMeals Kitchen",
+        category: "food-provider",
+        location: "Vellayambalam, Trivandrum",
+        distanceKm: 1.9,
+        tags: ["Calorie-counted meals", "Subscription"],
+        image: "images/athlete-meals.jpg"
+      }
+    ];
+
+    const providersList = document.getElementById("providersList");
+    const resultsCount = document.getElementById("resultsCount");
+    const categorySelect = document.getElementById("categorySelect");
+    const locationInput = document.getElementById("locationInput");
+    const searchBtn = document.getElementById("searchBtn");
+
+    function formatCategory(cat) {
+      switch (cat) {
+        case "health-club":      return "Health Club";
+        case "sports-facility":  return "Sports Facility";
+        case "sports-clinic":    return "Sports Clinic";
+        case "nutrition-shop":   return "Nutrition Shop";
+        case "food-provider":    return "Healthy Food Provider";
+        default:                 return "Service";
+      }
+    }
+
+    function renderProviders(list) {
+      providersList.innerHTML = "";
+      resultsCount.textContent = list.length;
+
+      if (!list.length) {
+        providersList.innerHTML =
+          '<p class="small text-muted">No providers found. Try changing the category or location.</p>';
+        return;
+      }
+
+      list.forEach((p) => {
+        const tagsHtml = p.tags
+          .map((t) => `<span class="provider-tag">${t}</span>`)
+          .join("");
+
+        const card = document.createElement("div");
+        card.className = "provider-card";
+
+        card.innerHTML = `
+          <div class="d-flex">
+            <div class="me-3" style="flex:0 0 96px;">
+              <div class="rounded" style="overflow:hidden;width:96px;height:72px;background:#eee;">
+                <img
+                  src="${p.image}"
+                  alt="${p.name}"
+                  style="width:100%;height:100%;object-fit:cover;"
+                />
+              </div>
+            </div>
+            <div class="flex-grow-1 d-flex justify-content-between">
+              <div>
+                <h6 class="mb-1">${p.name}</h6>
+                <p class="small text-muted mb-1">
+                  <i class="bi bi-geo-alt me-1 text-success"></i>${p.location}
+                </p>
+                <p class="small text-muted mb-2">
+                  <i class="bi bi-pin-map me-1 text-success"></i>Approx. ${p.distanceKm} km away
+                </p>
+                <div>${tagsHtml}</div>
+              </div>
+              <div class="text-end ms-2">
+                <span class="badge bg-light text-success border mb-2 d-inline-block">
+                  ${formatCategory(p.category)}
+                </span>
+                <a href="provider.html?id=${p.id}" class="btn btn-sm btn-outline-success d-block">
+                  View / Book
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+
+        providersList.appendChild(card);
+      });
+    }
+
+    function searchProviders() {
+      const category = categorySelect.value;
+      const loc = locationInput.value.trim().toLowerCase();
+
+      let filtered = sampleProviders.slice();
+
+      if (category !== "all") {
+        filtered = filtered.filter((p) => p.category === category);
+      }
+
+      if (loc) {
+        filtered = filtered.filter((p) =>
+          p.location.toLowerCase().includes(loc)
+        );
+      }
+
+      renderProviders(filtered);
+    }
+
+    searchBtn.addEventListener("click", searchProviders);
+
+    // initial render
+    renderProviders(sampleProviders);
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>

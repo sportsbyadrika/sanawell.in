@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Provider Details – Sanawell</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+  />
+
+  <style>
+    :root {
+      --sw-primary: #0f9b72;
+      --sw-primary-soft: #e6f7f1;
+      --sw-dark: #083b33;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: #f5faf8;
+    }
+
+    .navbar {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    .navbar-brand span {
+      font-weight: 700;
+      color: var(--sw-dark);
+    }
+
+    .btn-sw {
+      background: var(--sw-primary);
+      border-color: var(--sw-primary);
+      color: #fff;
+    }
+
+    .btn-sw:hover {
+      background: #0b7a59;
+      border-color: #0b7a59;
+      color: #fff;
+    }
+
+    .provider-hero {
+      background: var(--sw-primary-soft);
+      padding: 3.5rem 0 2rem;
+    }
+
+    .section-title {
+      font-weight: 700;
+      color: var(--sw-dark);
+    }
+
+    .badge-cat {
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid #c6e3d9;
+      font-size: 0.8rem;
+      padding: 0.25rem 0.7rem;
+      color: #31554a;
+    }
+
+    .tag-chip {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: #eef6f3;
+      color: #3b5c52;
+      display: inline-block;
+      margin: 0 0.25rem 0.25rem 0;
+    }
+
+    .info-card {
+      border-radius: 1rem;
+      border: 1px solid #e1ece6;
+      background: #fff;
+    }
+
+    .slot-pill {
+      border-radius: 999px;
+      border: 1px solid #d6e7e1;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      margin: 0.15rem;
+      background: #fff;
+    }
+
+    .slot-pill.active {
+      background: var(--sw-primary);
+      color: #fff;
+      border-color: var(--sw-primary);
+    }
+
+    footer {
+      border-top: 1px solid #e1ece6;
+      background: #f7fffd;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg bg-white sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <span
+          class="me-2 rounded-circle d-inline-flex align-items-center justify-content-center"
+          style="width:32px;height:32px;background:var(--sw-primary-soft);color:var(--sw-primary);"
+        >
+          <i class="bi bi-heart-pulse"></i>
+        </span>
+        <span>sanawell</span>
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#mainNav"
+        aria-controls="mainNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#services">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="providers.html">Find Nearby</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html#for-providers">For Providers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+        </ul>
+        <a href="providers.html" class="btn btn-sw ms-lg-3 mt-2 mt-lg-0">
+          Back to Search
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PROVIDER HERO -->
+  <section class="provider-hero">
+    <div class="container">
+      <div id="providerHeader"
+           class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+        <!-- Filled by JS -->
+      </div>
+      <div id="providerImages" class="row g-3 mt-3">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <section class="py-4 py-md-5">
+    <div class="container">
+      <div class="row g-4">
+        <!-- LEFT: Details -->
+        <div class="col-lg-7">
+          <div class="info-card p-4 mb-3">
+            <h5 class="mb-2">About this provider</h5>
+            <p id="providerAbout" class="small text-muted mb-3"></p>
+
+            <h6 class="small text-uppercase text-muted mb-2">Highlights</h6>
+            <div id="providerTags" class="mb-3"></div>
+
+            <h6 class="small text-uppercase text-muted mb-2">Location</h6>
+            <p class="small mb-1">
+              <i class="bi bi-geo-alt me-1 text-success"></i>
+              <span id="providerLocation"></span>
+            </p>
+            <p class="small text-muted mb-0">
+              <i class="bi bi-pin-map me-1 text-success"></i>
+              Approx. <span id="providerDistance"></span> km from your search area
+            </p>
+          </div>
+
+          <div class="info-card p-4 mb-3">
+            <h5 class="mb-3">Services & Plans</h5>
+            <ul id="providerServices" class="small text-muted mb-0"></ul>
+          </div>
+
+          <div class="info-card p-4">
+            <h6 class="mb-2">Typical Timings</h6>
+            <p class="small text-muted mb-2" id="providerTimings"></p>
+            <p class="small text-muted mb-0">
+              Exact slots will be confirmed after booking.
+            </p>
+          </div>
+        </div>
+
+        <!-- RIGHT: Booking form -->
+        <div class="col-lg-5">
+          <div class="info-card p-4">
+            <h5 class="mb-3">
+              <i class="bi bi-calendar-check me-1 text-success"></i>
+              Book / Request a Slot
+            </h5>
+            <form id="bookingForm">
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Your Name</label>
+                <input type="text" name="name" class="form-control" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Email</label>
+                <input type="email" name="email" class="form-control" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Mobile</label>
+                <input type="tel" name="mobile" class="form-control" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Service / Plan</label>
+                <select id="serviceSelect" class="form-select" required></select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Preferred Date</label>
+                <input type="date" name="date" class="form-control" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold d-block">Preferred Time Slot</label>
+                <div id="slotContainer" class="d-flex flex-wrap"></div>
+                <input type="hidden" id="selectedSlot" name="slot" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">Notes / Requirements</label>
+                <textarea
+                  name="notes"
+                  class="form-control"
+                  rows="3"
+                  placeholder="Eg. Beginner, back pain, vegetarian preference, etc."
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-sw w-100">
+                Submit Booking Request
+              </button>
+              <p class="small text-muted mt-2 mb-0">
+                Demo only – connect this form to your backend (save in DB, send email/WhatsApp).
+              </p>
+            </form>
+            <div id="bookingMessage"
+                 class="alert alert-success mt-3 d-none small mb-0">
+              Thank you! Your booking request has been submitted.
+              The provider will contact you to confirm time and payment.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-3">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <p class="small mb-1 mb-md-0 text-muted">
+        © <span id="year"></span> Sanawell. All rights reserved.
+      </p>
+      <p class="small mb-0 text-muted">
+        Health • Fitness • Sports • Nutrition
+      </p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Same provider IDs as in providers.html, but with more detail
+    const providersData = [
+      {
+        id: 1,
+        name: "GreenPulse Health Club",
+        category: "health-club",
+        location: "Kowdiar, Trivandrum",
+        distanceKm: 1.2,
+        tags: ["Gym", "Yoga", "Personal Training"],
+        about: "GreenPulse Health Club is a full-service fitness centre offering strength training, cardio, yoga and functional fitness with certified trainers.",
+        services: [
+          "Monthly membership – Gym access",
+          "Quarterly membership – Gym + Yoga",
+          "Personal training packages"
+        ],
+        timings: "Mon–Sat: 5:30 AM – 9:30 PM, Sun: 6:00 AM – 11:00 AM",
+        sampleSlots: ["06:00–07:00", "07:00–08:00", "17:00–18:00", "18:00–19:00"],
+        imageHero: "images/greenpulse-hero.jpg",
+        gallery: [
+          "images/greenpulse-gym.jpg",
+          "images/greenpulse-floor.jpg"
+        ]
+      },
+      {
+        id: 2,
+        name: "Elite Sports Arena",
+        category: "sports-facility",
+        location: "Sasthamangalam, Trivandrum",
+        distanceKm: 3.8,
+        tags: ["Badminton", "Futsal", "Coaching"],
+        about: "Elite Sports Arena hosts badminton courts and a futsal turf with coaching for kids and adults, along with pay-per-use bookings.",
+        services: [
+          "Hourly badminton court booking",
+          "Futsal turf – per match booking",
+          "Monthly coaching batches"
+        ],
+        timings: "Daily: 5:00 AM – 11:00 PM",
+        sampleSlots: ["05:30–06:30", "06:30–07:30", "19:00–20:00", "20:00–21:00"],
+        imageHero: "images/elite-hero.jpg",
+        gallery: [
+          "images/elite-arena.jpg"
+        ]
+      },
+      {
+        id: 3,
+        name: "ProMotion Sports Clinic",
+        category: "sports-clinic",
+        location: "Pattom, Trivandrum",
+        distanceKm: 4.1,
+        tags: ["Physiotherapy", "Rehab", "Sports Medicine"],
+        about: "ProMotion Sports Clinic offers physiotherapy, injury rehab and sports performance screening for athletes and fitness enthusiasts.",
+        services: [
+          "First consultation – sports physio",
+          "Rehab session package",
+          "Performance screening & assessment"
+        ],
+        timings: "Mon–Sat: 9:00 AM – 1:00 PM, 3:00 PM – 7:00 PM",
+        sampleSlots: ["09:30–10:00", "10:00–10:30", "16:00–16:30", "18:00–18:30"],
+        imageHero: "images/promotion-hero.jpg",
+        gallery: [
+          "images/promotion-clinic.jpg"
+        ]
+      },
+      {
+        id: 4,
+        name: "NutriFuel Store",
+        category: "nutrition-shop",
+        location: "Statue, Trivandrum",
+        distanceKm: 2.3,
+        tags: ["Supplements", "Health Foods"],
+        about: "NutriFuel Store provides supplements, protein, healthy snacks and athlete-focused groceries from verified brands.",
+        services: [
+          "In-store consultation and purchase",
+          "Home delivery order",
+          "Monthly nutrition pack subscription"
+        ],
+        timings: "Mon–Sat: 10:00 AM – 9:00 PM, Sun: 11:00 AM – 7:00 PM",
+        sampleSlots: ["11:00–12:00", "16:00–17:00", "18:00–19:00"],
+        imageHero: "images/nutrifuel-hero.jpg",
+        gallery: [
+          "images/nutrifuel-store.jpg"
+        ]
+      },
+      {
+        id: 5,
+        name: "AthleteMeals Kitchen",
+        category: "food-provider",
+        location: "Vellayambalam, Trivandrum",
+        distanceKm: 1.9,
+        tags: ["Calorie-counted meals", "Subscription"],
+        about: "AthleteMeals Kitchen prepares balanced, calorie-counted meals designed for athletes and fitness-focused individuals, delivered daily.",
+        services: [
+          "Daily lunch subscription",
+          "Daily lunch + dinner subscription",
+          "Custom weekend athlete meal plan"
+        ],
+        timings: "Deliveries typically between 12:00–2:00 PM and 7:00–9:00 PM",
+        sampleSlots: ["Lunch 12:00–13:00", "Lunch 13:00–14:00", "Dinner 19:00–20:00"],
+        imageHero: "images/athlete-meals-hero.jpg",
+        gallery: [
+          "images/athlete-meals.jpg"
+        ]
+      }
+    ];
+
+    function getQueryParam(name) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
+    }
+
+    function formatCategory(cat) {
+      switch (cat) {
+        case "health-club":      return "Health Club";
+        case "sports-facility":  return "Sports Facility";
+        case "sports-clinic":    return "Sports Clinic";
+        case "nutrition-shop":   return "Nutrition Shop";
+        case "food-provider":    return "Healthy Food Provider";
+        default:                 return "Service";
+      }
+    }
+
+    function renderProvider(provider) {
+      // Header text
+      const header = document.getElementById("providerHeader");
+      header.innerHTML = `
+        <div>
+          <div class="mb-1">
+            <span class="badge-cat">${formatCategory(provider.category)}</span>
+          </div>
+          <h2 class="section-title mb-1">${provider.name}</h2>
+          <p class="small text-muted mb-1">
+            <i class="bi bi-geo-alt me-1 text-success"></i>${provider.location}
+          </p>
+          <p class="small text-muted mb-0">
+            <i class="bi bi-pin-map me-1 text-success"></i>
+            Approx. ${provider.distanceKm} km from your search area
+          </p>
+        </div>
+      `;
+
+      // Images (hero + gallery)
+      const imgRow = document.getElementById("providerImages");
+      imgRow.innerHTML = "";
+
+      if (provider.imageHero) {
+        const colHero = document.createElement("div");
+        colHero.className = "col-md-8";
+        colHero.innerHTML = `
+          <div class="rounded" style="overflow:hidden;background:#eee;max-height:260px;">
+            <img
+              src="${provider.imageHero}"
+              alt="${provider.name}"
+              style="width:100%;height:100%;object-fit:cover;"
+            />
+          </div>
+        `;
+        imgRow.appendChild(colHero);
+      }
+
+      if (provider.gallery && provider.gallery.length > 0) {
+        const colGallery = document.createElement("div");
+        colGallery.className = "col-md-4 d-flex flex-md-column flex-wrap gap-2";
+
+        provider.gallery.forEach(function (src) {
+          const thumb = document.createElement("div");
+          thumb.className = "rounded";
+          thumb.style.overflow = "hidden";
+          thumb.style.background = "#eee";
+          thumb.style.height = "80px";
+          thumb.innerHTML = `
+            <img
+              src="${src}"
+              alt="Facility photo"
+              style="width:100%;height:100%;object-fit:cover;"
+            />
+          `;
+          colGallery.appendChild(thumb);
+        });
+
+        imgRow.appendChild(colGallery);
+      }
+
+      // About & location
+      document.getElementById("providerAbout").textContent = provider.about;
+      document.getElementById("providerLocation").textContent = provider.location;
+      document.getElementById("providerDistance").textContent = provider.distanceKm;
+
+      // Tags
+      const tagsDiv = document.getElementById("providerTags");
+      tagsDiv.innerHTML = "";
+      provider.tags.forEach(function (t) {
+        const el = document.createElement("span");
+        el.className = "tag-chip";
+        el.textContent = t;
+        tagsDiv.appendChild(el);
+      });
+
+      // Services list and select
+      const servicesUl = document.getElementById("providerServices");
+      const serviceSelect = document.getElementById("serviceSelect");
+      servicesUl.innerHTML = "";
+      serviceSelect.innerHTML = '<option value="">Select a service</option>';
+
+      provider.services.forEach(function (s) {
+        const li = document.createElement("li");
+        li.textContent = s;
+        servicesUl.appendChild(li);
+
+        const opt = document.createElement("option");
+        opt.value = s;
+        opt.textContent = s;
+        serviceSelect.appendChild(opt);
+      });
+
+      // Timings
+      document.getElementById("providerTimings").textContent = provider.timings;
+
+      // Slot pills
+      const slotContainer = document.getElementById("slotContainer");
+      const selectedSlotInput = document.getElementById("selectedSlot");
+      slotContainer.innerHTML = "";
+      selectedSlotInput.value = "";
+
+      provider.sampleSlots.forEach(function (slot) {
+        const span = document.createElement("span");
+        span.className = "slot-pill";
+        span.textContent = slot;
+        span.addEventListener("click", function () {
+          var pills = document.querySelectorAll(".slot-pill");
+          for (var i = 0; i < pills.length; i++) {
+            pills[i].classList.remove("active");
+          }
+          span.classList.add("active");
+          selectedSlotInput.value = slot;
+        });
+        slotContainer.appendChild(span);
+      });
+    }
+
+    function initBookingForm() {
+      var bookingForm = document.getElementById("bookingForm");
+      var bookingMessage = document.getElementById("bookingMessage");
+      var selectedSlotInput = document.getElementById("selectedSlot");
+
+      bookingForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        if (!selectedSlotInput.value) {
+          alert("Please select a preferred time slot.");
+          return;
+        }
+
+        // In real app: send form data to backend here
+        bookingMessage.classList.remove("d-none");
+        bookingForm.reset();
+
+        var pills = document.querySelectorAll(".slot-pill");
+        for (var i = 0; i < pills.length; i++) {
+          pills[i].classList.remove("active");
+        }
+        selectedSlotInput.value = "";
+      });
+    }
+
+    // Init page
+    (function () {
+      var idParam = getQueryParam("id");
+      var id = parseInt(idParam ? idParam : "0", 10);
+      var provider = null;
+
+      for (var i = 0; i < providersData.length; i++) {
+        if (providersData[i].id === id) {
+          provider = providersData[i];
+          break;
+        }
+      }
+
+      if (!provider) {
+        var hero = document.querySelector(".provider-hero .container");
+        hero.innerHTML =
+          '<h2 class="section-title mb-1">Provider not found</h2>' +
+          '<p class="text-muted">The provider you are looking for does not exist or the link is invalid.</p>';
+
+        document.getElementById("providerImages").innerHTML = "";
+        var mainSection = document.querySelector("section.py-4");
+        if (mainSection) {
+          mainSection.remove();
+        }
+      } else {
+        renderProvider(provider);
+        initBookingForm();
+      }
+
+      document.getElementById("year").textContent =
+        new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
